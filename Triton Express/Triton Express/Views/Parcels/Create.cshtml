@@ -1,0 +1,126 @@
+﻿@model Triton_Express.Models.Parcel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Create Parcel</h4>
+
+ <hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ParcelTypeId" class="control-label"></label>
+                <select asp-for="ParcelTypeId" class ="form-control" asp-items="ViewBag.ParcelTypeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParcelWeight" class="control-label"></label>
+                <input asp-for="ParcelWeight" onfocusout="checkParcel()" class="form-control" />
+                <span asp-validation-for="ParcelWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" onfocusout="checkParcel()" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DimensionsInCm" class="control-label"></label>
+                <input asp-for="DimensionsInCm" onfocusout="checkParcel()" class="form-control" />
+                <span asp-validation-for="DimensionsInCm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BranchId" class="control-label"></label>
+                <select asp-for="BranchId" class ="form-control" asp-items="ViewBag.BranchId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerId" class="control-label"></label>
+                <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script>
+    function checkParcel() {
+        debugger;
+        var ParcelTypeId = document.getElementById("ParcelTypeId");
+        var selectedText = ParcelTypeId.options[ParcelTypeId.selectedIndex].text;
+        var Quantity = document.getElementById("Quantity").value;
+        var ParcelWeight = document.getElementById("ParcelWeight").value;
+        var DimensionsInCm = document.getElementById("DimensionsInCm").value;
+        if (selectedText == "Small Parcel") {
+            if (Quantity>1) {
+                swal("Error!", "You can only have a Quantity of max 1 !", "warning");
+                $('#Quantity').val('');
+            }
+
+            if (ParcelWeight > 1) {
+                swal("Error!", "You can only have a max of 1kg !", "warning");
+                $('#ParcelWeight').val('');
+            }
+            if (DimensionsInCm > 10) {
+                swal("Error!", "You can only have a max of 10cms !", "warning");
+                $('#DimensionsInCm').val('');
+            }
+        }
+        
+        else if (selectedText == "Medium Parcel") {
+            if (Quantity>2) {
+                swal("Error!", "You can only have a Quantity of max 2 !", "warning");
+                                $('#Quantity').val('');
+            }
+            if (ParcelWeight > 2) {
+                swal("Error!", "You can only have a max of 2kg !", "warning");
+                $('#ParcelWeight').val('');
+            }
+            if (DimensionsInCm > 10) {
+                swal("Error!", "You can only have a max of 10cms !", "warning");
+                $('#DimensionsInCm').val('');
+            }
+        }
+
+        else if (selectedText == "Large Parcel") {
+            if (Quantity>3) {
+                swal("Error!", "You can only have a Quantity of max 3 !", "warning");
+                $('#Quantity').val('');
+            }
+            if (ParcelWeight > 3) {
+                swal("Error!", "You can only have a max of 3kg !", "warning");
+                $('#ParcelWeight').val('');
+            }
+            if (DimensionsInCm > 20) {
+                swal("Error!", "You can only have a max of 20cms !", "warning");
+                $('#DimensionsInCm').val('');
+            }
+        }
+        else {
+
+        }
+    }
+</script>

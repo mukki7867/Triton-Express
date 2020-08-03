@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Triton_Express.Models.Branch>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New</a>
+</p>
+
+<table class="table table-bordered table-hover table-striped panel panel-default display" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchPhysicalAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchCountry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchContactNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchManagerEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SmallWaybillCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MediumWaybillCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LargeWaybillCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchPhysicalAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchContactNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchManagerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SmallWaybillCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MediumWaybillCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LargeWaybillCount)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a>  
+                <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id">Details</a>  
+                <a asp-action="Delete" class="btn btn-primary" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script>

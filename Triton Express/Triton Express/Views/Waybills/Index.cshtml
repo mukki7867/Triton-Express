@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Triton_Express.Models.Waybill>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New</a>
+</p>
+<table class="table table-bordered table-hover table-striped panel panel-default display" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalNumberofParcels)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalNumberofParcels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.RegistrationNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch.BranchCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+              <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a>  
+                <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id">Details</a>  
+                <a asp-action="Edit" asp-controller="Branches"  class="btn btn-primary" asp-route-id="@item.BranchId">Edit Branch</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script>

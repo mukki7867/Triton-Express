@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Triton_Express.Models.Parcel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New</a>
+</p>
+<table class="table table-bordered table-hover table-striped panel panel-default display" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParcelType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParcelWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DimensionsInCm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaybillNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Waybill.Branch.BranchCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParcelType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParcelWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DimensionsInCm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaybillNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Waybill.Branch.BranchCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a>  
+                <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id">Details</a>  
+                <a asp-action="Delete" class="btn btn-primary" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script>

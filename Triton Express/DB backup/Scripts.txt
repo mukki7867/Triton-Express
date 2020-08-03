@@ -1,0 +1,555 @@
+USE [master]
+GO
+/****** Object:  Database [Triton_Express]    Script Date: 8/3/2020 12:22:09 PM ******/
+CREATE DATABASE [Triton_Express]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Triton_Express', FILENAME = N'C:\Users\Mukki\Triton_Express.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Triton_Express_log', FILENAME = N'C:\Users\Mukki\Triton_Express_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [Triton_Express] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Triton_Express].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Triton_Express] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Triton_Express] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Triton_Express] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Triton_Express] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Triton_Express] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Triton_Express] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Triton_Express] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Triton_Express] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Triton_Express] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Triton_Express] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Triton_Express] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Triton_Express] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Triton_Express] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Triton_Express] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Triton_Express] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Triton_Express] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Triton_Express] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Triton_Express] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Triton_Express] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Triton_Express] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Triton_Express] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [Triton_Express] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Triton_Express] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Triton_Express] SET  MULTI_USER 
+GO
+ALTER DATABASE [Triton_Express] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Triton_Express] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Triton_Express] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Triton_Express] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Triton_Express] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Triton_Express] SET QUERY_STORE = OFF
+GO
+USE [Triton_Express]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+USE [Triton_Express]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 8/3/2020 12:22:09 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Branches]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Branches](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[BranchName] [nvarchar](max) NULL,
+	[BranchPhysicalAddress] [nvarchar](max) NULL,
+	[BranchCity] [nvarchar](max) NULL,
+	[BranchCode] [nvarchar](max) NULL,
+	[BranchCountry] [nvarchar](max) NULL,
+	[BranchContactNumber] [nvarchar](max) NULL,
+	[BranchManagerEmail] [nvarchar](max) NULL,
+	[SmallWaybillCount] [int] NOT NULL,
+	[MediumWaybillCount] [int] NOT NULL,
+	[LargeWaybillCount] [int] NOT NULL,
+ CONSTRAINT [PK_Branches] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Customers]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Customers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[IdentificationNumber] [nvarchar](100) NULL,
+	[TitleTypeId] [int] NULL,
+	[FirstName] [nvarchar](100) NULL,
+	[LastName] [nvarchar](100) NULL,
+	[Gender] [nvarchar](25) NULL,
+	[IsDeceased] [bit] NULL,
+	[EmailAddress] [nvarchar](100) NULL,
+	[WorkPhoneNumber] [nvarchar](100) NULL,
+	[HomePhoneNumber] [nvarchar](100) NULL,
+	[CellPhoneNumber] [nvarchar](100) NULL,
+	[PhysicalAddress1] [nvarchar](25) NULL,
+	[PhysicalAddress2] [nvarchar](100) NULL,
+	[PhysicalAddress3] [nvarchar](100) NULL,
+	[PhysicalAddress4] [nvarchar](100) NULL,
+	[PhysicalAddress5] [nvarchar](100) NULL,
+	[PhysicalAddressCode] [int] NOT NULL,
+	[PostalAddress1] [nvarchar](25) NULL,
+	[PostalAddress2] [nvarchar](100) NULL,
+	[PostalAddress3] [nvarchar](100) NULL,
+	[PostalAddress4] [nvarchar](100) NULL,
+	[PostalAddress5] [nvarchar](100) NULL,
+	[PostalAddressCode] [int] NOT NULL,
+	[StatusId] [int] NOT NULL,
+ CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Parcels]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Parcels](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[ParcelWeight] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[DimensionsInCm] [int] NOT NULL,
+	[WaybillNumber] [int] NOT NULL,
+	[WaybillId] [int] NULL,
+	[CustomerId] [int] NOT NULL,
+	[ParcelTypeId] [int] NOT NULL,
+	[BranchId] [int] NULL,
+ CONSTRAINT [PK_Parcels] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ParcelTypes]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ParcelTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[Description] [nvarchar](500) NULL,
+	[Key] [nvarchar](100) NULL,
+ CONSTRAINT [PK_ParcelTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Statuses]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Statuses](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[Description] [nvarchar](500) NULL,
+	[Key] [nvarchar](100) NULL,
+	[StatusTypeId] [int] NOT NULL,
+ CONSTRAINT [PK_Statuses] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StatusTypes]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StatusTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[Description] [nvarchar](500) NULL,
+	[Key] [nvarchar](100) NULL,
+ CONSTRAINT [PK_StatusTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TitleTypes]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TitleTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[Description] [nvarchar](500) NULL,
+	[Key] [nvarchar](100) NULL,
+ CONSTRAINT [PK_TitleTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Vehicles]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Vehicles](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[RegistrationNo] [nvarchar](max) NULL,
+	[Colour] [nvarchar](max) NULL,
+	[Brand] [nvarchar](max) NULL,
+	[BranchId] [int] NULL,
+ CONSTRAINT [PK_Vehicles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Waybills]    Script Date: 8/3/2020 12:22:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Waybills](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[IsLocked] [bit] NULL,
+	[CreatedBySystemUserId] [int] NULL,
+	[CreatedDateTime] [datetime2](7) NULL,
+	[ModifiedBySystemUserId] [int] NULL,
+	[ModifiedDateTime] [datetime2](7) NULL,
+	[TotalWeight] [int] NOT NULL,
+	[TotalNumberofParcels] [int] NOT NULL,
+	[VehicleId] [int] NULL,
+	[BranchId] [int] NULL,
+ CONSTRAINT [PK_Waybills] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20200802170121_initialMigss', N'3.1.6')
+GO
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20200802183725_initialMigsss', N'3.1.6')
+GO
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20200802183946_initialMigssses', N'3.1.6')
+GO
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20200802224645_parcels', N'3.1.6')
+GO
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20200802235326_branch', N'3.1.6')
+GO
+SET IDENTITY_INSERT [dbo].[Branches] ON 
+GO
+INSERT [dbo].[Branches] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [BranchName], [BranchPhysicalAddress], [BranchCity], [BranchCode], [BranchCountry], [BranchContactNumber], [BranchManagerEmail], [SmallWaybillCount], [MediumWaybillCount], [LargeWaybillCount]) VALUES (1, 1, 0, NULL, NULL, NULL, NULL, NULL, N'Kingsmead', N'25 Richmond Rd', N'Durban', N'3610', N'South Africa', N'0738396590', N'mukki7867@gmail.com', 1, 0, 0)
+GO
+INSERT [dbo].[Branches] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [BranchName], [BranchPhysicalAddress], [BranchCity], [BranchCode], [BranchCountry], [BranchContactNumber], [BranchManagerEmail], [SmallWaybillCount], [MediumWaybillCount], [LargeWaybillCount]) VALUES (2, 1, 0, NULL, NULL, NULL, NULL, NULL, N'Sandton', N'Meadowview Business Estate', N'Johannesburg', N'1610', N'South Africa', N'0738396590', N'mukki7867@gmail.com', 0, 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Branches] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Customers] ON 
+GO
+INSERT [dbo].[Customers] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [IdentificationNumber], [TitleTypeId], [FirstName], [LastName], [Gender], [IsDeceased], [EmailAddress], [WorkPhoneNumber], [HomePhoneNumber], [CellPhoneNumber], [PhysicalAddress1], [PhysicalAddress2], [PhysicalAddress3], [PhysicalAddress4], [PhysicalAddress5], [PhysicalAddressCode], [PostalAddress1], [PostalAddress2], [PostalAddress3], [PostalAddress4], [PostalAddress5], [PostalAddressCode], [StatusId]) VALUES (1, 1, 0, NULL, NULL, NULL, NULL, NULL, N'9403108498087', 9, N'Mukhtaar', N'Khan', NULL, NULL, N'mukki7867@gmail.com', N'0738396590', N'0738396590', N'0738396590', N'10', N'Larrisa Mews', N'10', N'179 Buttery Road', N'Dbn North', 4051, N'10', N'10', N'10', N'fnb', N'Dbn North', 3201, 2)
+GO
+SET IDENTITY_INSERT [dbo].[Customers] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Parcels] ON 
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (1, 1, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, 2, 0, NULL, 1, 2, 2)
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (2, 1, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, 2, 0, NULL, 1, 2, 2)
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (3, 1, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, NULL, 1, 2, 2)
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (4, 1, 0, NULL, NULL, NULL, NULL, NULL, 2, 2, 1, 0, NULL, 1, 2, 2)
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (5, 1, 0, NULL, NULL, NULL, NULL, NULL, 2, 3, 3, 0, NULL, 1, 3, 1)
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (6, 1, 0, NULL, NULL, NULL, NULL, NULL, 2, 2, 2, 0, NULL, 1, 2, 2)
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (7, 1, 0, NULL, NULL, NULL, NULL, NULL, 2, 2, 2, 0, NULL, 1, 2, 2)
+GO
+INSERT [dbo].[Parcels] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [ParcelWeight], [Quantity], [DimensionsInCm], [WaybillNumber], [WaybillId], [CustomerId], [ParcelTypeId], [BranchId]) VALUES (8, 1, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, NULL, 1, 1, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Parcels] OFF
+GO
+SET IDENTITY_INSERT [dbo].[ParcelTypes] ON 
+GO
+INSERT [dbo].[ParcelTypes] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key]) VALUES (1, 1, 0, NULL, NULL, NULL, NULL, NULL, N'Small Parcel', N'100.00', N'SmallParcel')
+GO
+INSERT [dbo].[ParcelTypes] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key]) VALUES (2, 1, 0, NULL, NULL, NULL, NULL, NULL, N'Medium Parcel', N'150.00', N'MediumParcel')
+GO
+INSERT [dbo].[ParcelTypes] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key]) VALUES (3, 1, 0, NULL, NULL, NULL, NULL, NULL, N'Large Parcel', N'200.00', N'LargeParcel')
+GO
+SET IDENTITY_INSERT [dbo].[ParcelTypes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Statuses] ON 
+GO
+INSERT [dbo].[Statuses] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key], [StatusTypeId]) VALUES (2, 1, 0, 0, NULL, NULL, NULL, NULL, N'Approved', N'Approved', N'Approved', 1)
+GO
+SET IDENTITY_INSERT [dbo].[Statuses] OFF
+GO
+SET IDENTITY_INSERT [dbo].[StatusTypes] ON 
+GO
+INSERT [dbo].[StatusTypes] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key]) VALUES (1, 1, 0, 0, NULL, NULL, NULL, NULL, N'Approved', N'Approved', N'Approved')
+GO
+SET IDENTITY_INSERT [dbo].[StatusTypes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TitleTypes] ON 
+GO
+INSERT [dbo].[TitleTypes] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key]) VALUES (9, 1, 0, 0, NULL, NULL, NULL, NULL, N'Mr', N'Mr', N'Mr')
+GO
+INSERT [dbo].[TitleTypes] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key]) VALUES (13, 1, 0, 0, NULL, NULL, NULL, NULL, N'Mrs', N'Mrs', N'Mrs')
+GO
+INSERT [dbo].[TitleTypes] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [Name], [Description], [Key]) VALUES (14, 1, 0, 0, NULL, NULL, NULL, NULL, N'Other', N'Other', N'Other')
+GO
+SET IDENTITY_INSERT [dbo].[TitleTypes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Vehicles] ON 
+GO
+INSERT [dbo].[Vehicles] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [RegistrationNo], [Colour], [Brand], [BranchId]) VALUES (1, 1, 0, NULL, NULL, NULL, NULL, NULL, N'ND12342', N'red', N'BMW', 1)
+GO
+INSERT [dbo].[Vehicles] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [RegistrationNo], [Colour], [Brand], [BranchId]) VALUES (2, 1, 0, NULL, NULL, NULL, NULL, NULL, N'Nd- 12321', N'Black', N'Merc', 2)
+GO
+SET IDENTITY_INSERT [dbo].[Vehicles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Waybills] ON 
+GO
+INSERT [dbo].[Waybills] ([Id], [IsActive], [IsDeleted], [IsLocked], [CreatedBySystemUserId], [CreatedDateTime], [ModifiedBySystemUserId], [ModifiedDateTime], [TotalWeight], [TotalNumberofParcels], [VehicleId], [BranchId]) VALUES (1, 1, 0, NULL, NULL, NULL, NULL, NULL, 230, 20, 1, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Waybills] OFF
+GO
+/****** Object:  Index [IX_Customers_StatusId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Customers_StatusId] ON [dbo].[Customers]
+(
+	[StatusId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Customers_TitleTypeId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Customers_TitleTypeId] ON [dbo].[Customers]
+(
+	[TitleTypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Parcels_BranchId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Parcels_BranchId] ON [dbo].[Parcels]
+(
+	[BranchId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Parcels_CustomerId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Parcels_CustomerId] ON [dbo].[Parcels]
+(
+	[CustomerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Parcels_ParcelTypeId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Parcels_ParcelTypeId] ON [dbo].[Parcels]
+(
+	[ParcelTypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Parcels_WaybillId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Parcels_WaybillId] ON [dbo].[Parcels]
+(
+	[WaybillId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Statuses_StatusTypeId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Statuses_StatusTypeId] ON [dbo].[Statuses]
+(
+	[StatusTypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Vehicles_BranchId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Vehicles_BranchId] ON [dbo].[Vehicles]
+(
+	[BranchId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Waybills_BranchId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Waybills_BranchId] ON [dbo].[Waybills]
+(
+	[BranchId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Waybills_VehicleId]    Script Date: 8/3/2020 12:22:11 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Waybills_VehicleId] ON [dbo].[Waybills]
+(
+	[VehicleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Parcels] ADD  DEFAULT ((0)) FOR [ParcelTypeId]
+GO
+ALTER TABLE [dbo].[Customers]  WITH CHECK ADD  CONSTRAINT [FK_Customers_Statuses_StatusId] FOREIGN KEY([StatusId])
+REFERENCES [dbo].[Statuses] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Customers] CHECK CONSTRAINT [FK_Customers_Statuses_StatusId]
+GO
+ALTER TABLE [dbo].[Customers]  WITH CHECK ADD  CONSTRAINT [FK_Customers_TitleTypes_TitleTypeId] FOREIGN KEY([TitleTypeId])
+REFERENCES [dbo].[TitleTypes] ([Id])
+GO
+ALTER TABLE [dbo].[Customers] CHECK CONSTRAINT [FK_Customers_TitleTypes_TitleTypeId]
+GO
+ALTER TABLE [dbo].[Parcels]  WITH CHECK ADD  CONSTRAINT [FK_Parcels_Branches_BranchId] FOREIGN KEY([BranchId])
+REFERENCES [dbo].[Branches] ([Id])
+GO
+ALTER TABLE [dbo].[Parcels] CHECK CONSTRAINT [FK_Parcels_Branches_BranchId]
+GO
+ALTER TABLE [dbo].[Parcels]  WITH CHECK ADD  CONSTRAINT [FK_Parcels_Customers_CustomerId] FOREIGN KEY([CustomerId])
+REFERENCES [dbo].[Customers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Parcels] CHECK CONSTRAINT [FK_Parcels_Customers_CustomerId]
+GO
+ALTER TABLE [dbo].[Parcels]  WITH CHECK ADD  CONSTRAINT [FK_Parcels_ParcelTypes_ParcelTypeId] FOREIGN KEY([ParcelTypeId])
+REFERENCES [dbo].[ParcelTypes] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Parcels] CHECK CONSTRAINT [FK_Parcels_ParcelTypes_ParcelTypeId]
+GO
+ALTER TABLE [dbo].[Parcels]  WITH CHECK ADD  CONSTRAINT [FK_Parcels_Waybills_WaybillId] FOREIGN KEY([WaybillId])
+REFERENCES [dbo].[Waybills] ([Id])
+GO
+ALTER TABLE [dbo].[Parcels] CHECK CONSTRAINT [FK_Parcels_Waybills_WaybillId]
+GO
+ALTER TABLE [dbo].[Statuses]  WITH CHECK ADD  CONSTRAINT [FK_Statuses_StatusTypes_StatusTypeId] FOREIGN KEY([StatusTypeId])
+REFERENCES [dbo].[StatusTypes] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Statuses] CHECK CONSTRAINT [FK_Statuses_StatusTypes_StatusTypeId]
+GO
+ALTER TABLE [dbo].[Vehicles]  WITH CHECK ADD  CONSTRAINT [FK_Vehicles_Branches_BranchId] FOREIGN KEY([BranchId])
+REFERENCES [dbo].[Branches] ([Id])
+GO
+ALTER TABLE [dbo].[Vehicles] CHECK CONSTRAINT [FK_Vehicles_Branches_BranchId]
+GO
+ALTER TABLE [dbo].[Waybills]  WITH CHECK ADD  CONSTRAINT [FK_Waybills_Branches_BranchId] FOREIGN KEY([BranchId])
+REFERENCES [dbo].[Branches] ([Id])
+GO
+ALTER TABLE [dbo].[Waybills] CHECK CONSTRAINT [FK_Waybills_Branches_BranchId]
+GO
+ALTER TABLE [dbo].[Waybills]  WITH CHECK ADD  CONSTRAINT [FK_Waybills_Vehicles_VehicleId] FOREIGN KEY([VehicleId])
+REFERENCES [dbo].[Vehicles] ([Id])
+GO
+ALTER TABLE [dbo].[Waybills] CHECK CONSTRAINT [FK_Waybills_Vehicles_VehicleId]
+GO
+USE [master]
+GO
+ALTER DATABASE [Triton_Express] SET  READ_WRITE 
+GO

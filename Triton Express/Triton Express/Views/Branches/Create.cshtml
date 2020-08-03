@@ -1,0 +1,119 @@
+﻿@model Triton_Express.Models.Branch
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Add a Branch</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="BranchName" class="control-label"></label>
+                        <input asp-for="BranchName" class="form-control" />
+                        <span asp-validation-for="BranchName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="BranchPhysicalAddress" class="control-label"></label>
+                        <input asp-for="BranchPhysicalAddress" class="form-control" />
+                        <span asp-validation-for="BranchPhysicalAddress" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="BranchCity" class="control-label"></label>
+                        <input asp-for="BranchCity"  class="form-control" />
+                        <span asp-validation-for="BranchCity" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="BranchCode" class="control-label"></label>
+                        <input asp-for="BranchCode" onkeypress = "return blockSpecialChar(event)" class="form-control" />
+                        <span asp-validation-for="BranchCode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="BranchCountry" class="control-label"></label>
+                        <input asp-for="BranchCountry" readonly="readonly"  value="South Africa" class="form-control" />
+                        <span asp-validation-for="BranchCountry" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="BranchContactNumber" class="control-label"></label>
+                        <input asp-for="BranchContactNumber" onkeypress = "return blockSpecialChar(event)" class="form-control" />
+                        <span asp-validation-for="BranchContactNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <div class="form-group">
+                        <label asp-for="BranchManagerEmail" class="control-label"></label>
+                        <input asp-for="BranchManagerEmail" onfocusout="validateEmail(this.id)" class="form-control" />
+                        <span asp-validation-for="BranchManagerEmail" class="text-danger"></span>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                        </label>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
